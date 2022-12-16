@@ -3,6 +3,7 @@ const logs = express.Router();
 const logsArr = require("../models/log");
 
 const orderArr = (arr, mode, key, key2) => {
+  // ascending order, if first key is the same, checks the second
   if (mode === "asc") {
     arr.sort((a, b) => {
       let valA = a[key].toLowerCase();
@@ -24,7 +25,7 @@ const orderArr = (arr, mode, key, key2) => {
       return 0;
     });
   }
-
+  // descending order, if first key is the same, checks the second
   if (mode === "desc") {
     arr.sort((a, b) => {
       let valA = a[key].toLowerCase();
@@ -48,12 +49,46 @@ const orderArr = (arr, mode, key, key2) => {
   }
 };
 
+const filterByCrisis = (arr, entry) => {
+  let num;
+  let filteredArr;
+  if (entry.includes("gte")) {
+    num = +entry.replace("gte", "");
+    filteredArr = arr.filter((el) => el.daysSinceLastCrisis >= num);
+  } else if (entry.includes("gt")) {
+    num = +entry.replace("gt", "");
+    filteredArr = arr.filter((el) => el.daysSinceLastCrisis > num);
+  } else if (entry.includes("lte")) {
+    num = +entry.replace("lte", "");
+    filteredArr = arr.filter((el) => el.daysSinceLastCrisis <= num);
+  } else if (entry.includes("lt")) {
+    num = +entry.replace("lt", "");
+    filteredArr = arr.filter((el) => el.daysSinceLastCrisis < num);
+  }
+  return filteredArr;
+};
+
 logs.get("/", (req, res) => {
-  const response = [...logsArr];
+  let response = [...logsArr];
   const { order, mistakes, lastCrisis } = req.query;
+
+  // Filter by mistakes status
+  if (mistakes) {
+    response = response.filter(
+      (el) => el.mistakesWereMadeToday.toString() === mistakes
+    );
+  }
+
+  // Filter by last crisis
+  if (lastCrisis) {
+    response = filterByCrisis(response, lastCrisis);
+  }
+
+  // Sort the data
   if (order) {
     orderArr(response, order, "captainName", "title");
   }
+
   res.status(200).json(response);
 });
 
