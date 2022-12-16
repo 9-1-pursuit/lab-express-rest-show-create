@@ -16,13 +16,14 @@ log.get('/:index', (req, res) => {
   if (logsArray[index]) {
     res.status(200).json(logsArray[index]);
   } else {
-    res.status(404).json({ error: 'Not Found' });
+    res.redirect('/*');
   }
 });
 
 log.delete('/:id', (req, res) => {
   logsArray.pop(req.body);
   res.json(logsArray.at({ index }));
+  //   res.json(logsArray.at(-1));
 });
 
 module.exports = log;
