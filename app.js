@@ -9,4 +9,9 @@ app.use("/logs", require("./controllers/logs.js"))
 app.get("/", (req, resp) => {
     resp.send("Captain's Log")
 })
+
+// Error for undefined Routes
+app.get("*", (req,resp) => {
+    resp.status(404).json({error: "Page not found"})
+})
 module.exports = app
