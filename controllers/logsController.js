@@ -14,12 +14,12 @@ log.get("/", (req, res) => {
 });
 
 // SHOW
-log.get("/:arrayIndex", (req, res) => {
-  const { arrayIndex } = req.params;
-  if (logsArray[arrayIndex]) {
-    res.status(200).json(logsArray[arrayIndex]);
+log.get("/:index", (req, res) => {
+  const { index } = req.params;
+  if (logsArray[index]) {
+    res.status(200).json(logsArray[index]);
   } else {
-    res.status(404).json({ error: "Not Found" });
+    res.redirect("/*");
   }
 });
 
