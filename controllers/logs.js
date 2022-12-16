@@ -4,10 +4,10 @@ const data = require("../models/captainData.js")
 const {logQueries} = require("../models/logsFunctions.js")
 
 // root for /logs route
-router.get("/", (req, resp) => {    
-    const orderQuery = logQueries(req, "order", data)
+router.get("/", (req, resp) => {  
+    const  query  = req.query
+    Object.keys(query).length  ?  resp.json(logQueries(query, [...data])) : resp.json(data)
     
-    orderQuery  ? resp.send(orderQuery) : resp.send(data)
     
 })
 
