@@ -12,6 +12,6 @@ app.get("/", (req, resp) => {
 
 // Error for undefined Routes
 app.get("*", (req,resp) => {
-    resp.status(404).json({error: "Page not found"})
+    resp.status(404).json({Error: "Page Not found"})
 })
 module.exports = app
