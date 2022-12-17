@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const data = require("../models/captainData.js")
+const data = require("../models/log.js")
 const {logQueries, validatePost} = require("../models/logsFunctions.js")
 
 
@@ -19,7 +19,7 @@ router.post("/", validatePost, (req, resp) => {
 // SHOW ROUTE for /logs
 router.get("/:id", (req, resp) => {
     const {id} = req.params
-    data[id] ? resp.json(data[id]) : resp.status(404).json({Error: "Page Not Found"})
+    data[id] ? resp.json(data[id]) : resp.redirect("/*")
 })
 
 module.exports = router
