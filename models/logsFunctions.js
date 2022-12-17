@@ -1,11 +1,3 @@
-
-/* 
-    -/logs?order=asc it will organize the logs alphabetically 
-    /logs?order=desc it will organize the logs in reverse alphabetical order
-    - SORT:  a<b -1, a>b 1, else 0
-    - /logs?mistakes=true it will only show the logs where the value of mistakesWereMadeToday is true
-    - /logs?mistakes=false it will only show the logs where the value of mistakesWereMadeToday is false
-    */
 function logQueries(queryObj, dataArr) {
     let display;
 
@@ -23,8 +15,18 @@ function logQueries(queryObj, dataArr) {
         }
         else if(queryObj.mistakes === "false"){
             display = dataArr.filter(({mistakesWereMadeToday}) => mistakesWereMadeToday === false)
+        }   
+    }
+    if(queryObj.lastCrisis){
+        if(queryObj.lastCrisis ==="gt10"){
+            display = dataArr.filter(({daysSinceLastCrisis}) => daysSinceLastCrisis > 10)
         }
-        
+        if(queryObj.lastCrisis ==="gte20"){
+            display = dataArr.filter(({daysSinceLastCrisis}) => daysSinceLastCrisis >= 20)
+        }
+        if(queryObj.lastCrisis ==="lte5"){
+            display = dataArr.filter(({daysSinceLastCrisis}) => daysSinceLastCrisis <= 5)
+        }
     }
     
     return display
