@@ -7,7 +7,15 @@ const {logQueries, validatePost} = require("../models/logsFunctions.js")
 // root for /logs route
 router.get("/", (req, resp) => {  
     const  query  = req.query
-    Object.keys(query).length  ?  resp.json(logQueries(query, [...data])) : resp.json(data)  
+    const display = logQueries(query, [...data]) 
+    
+    if (Object.keys(query).length){
+        display ? resp.json(display) : resp.redirect("/*")
+    }
+    else{
+        resp.json(data)
+    }
+    
 })
 
 // CREATE FOR root route
