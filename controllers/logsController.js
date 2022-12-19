@@ -14,7 +14,6 @@ logs.get("/:id", (req, res) => {
 });
 
 logs.post("/", (req, res) => {
-  console.log(req.body);
   logsArray = [...logsArray, req.body];
   res.send(logsArray.at(-1));
 });
