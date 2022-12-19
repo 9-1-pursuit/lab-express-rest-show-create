@@ -11,7 +11,7 @@ router.get("/", (req, resp) => {
             <a href="/v2/logs/${i}">${obj.captainName}</a>
         </li>`
     )
-    resp.send(display)
+    resp.send(`<ul>${display}</ul>`)
 })
 
 router.get("/:index", (req, resp) => {
