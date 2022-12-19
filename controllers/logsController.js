@@ -14,6 +14,7 @@ logs.get("/", (req, res) => {
 
 //POST
 // adds new long to end of logs array
+// replaces the index in the logs array
 logs.post("/", (req, res) => {
   logsArray.push(req.body)
   res.json(logsArray.at(-1))
@@ -27,7 +28,7 @@ logs.get("/:index", (req, res) => {
   if (logsArray[index]) {
     res.status(200).json(logsArray[index])
   } else {
-    res.redirect("/*")
+    res.redirect("*")
   }
 })
 
