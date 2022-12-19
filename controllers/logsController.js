@@ -6,10 +6,25 @@ let logsArray = require("../models/log.js");
 // logs.get("/", (req, res) => {
 //   res.json(logsArray);
 // });
+
+const array = [];
+const validateObj = (req, res, next) => {
+  const isValid = logsArray.map((log) => {
+    if (
+      typeof log.captainName === "string" &&
+      typeof log.title === "string" &&
+      typeof log.post === "string" &&
+      typeof log.mistakesWereMadeToday === "boolean" &&
+      typeof log.daysSinceLastCrisis === "number"
+    )
+      array.push(log);
+  });
+  next();
+};
+console.log(array);
 //ascending alphabetic order
-logs.get("/", (req, res) => {
+logs.get("/", validateObj, (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
-  console.log(mistakes);
 
   if (order === "asc") {
     let ascending = Object.values(
@@ -50,11 +65,11 @@ logs.get("/", (req, res) => {
     });
     res.json(withoutMistakes);
   }
-  if (lastCrisis === "gte5") {
+  if (lastCrisis === "lte5") {
     const gt5 = logsArray.filter((el) => el.daysSinceLastCrisis <= 5);
     res.json(gt5);
-  } else if (lastCrisis === "gte10") {
-    const gt10 = logsArray.filter((el) => el.daysSinceLastCrisis >= 10);
+  } else if (lastCrisis === "gt10") {
+    const gt10 = logsArray.filter((el) => el.daysSinceLastCrisis > 10);
     res.json(gt10);
   } else if (lastCrisis === "gte20") {
     const gt20 = logsArray.filter((el) => el.daysSinceLastCrisis >= 20);
