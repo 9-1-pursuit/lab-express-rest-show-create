@@ -20,9 +20,19 @@ log.post("/", (req, res) => {
   res.json(logArray.at(-1));
 });
 
-log.delete("/:id", (req, res) => {
+log.delete("/:index", (req, res) => {
   logArray.pop(req.body);
   res.json(logArray.at({ index }));
+});
+
+//BONUS
+bookmarks.put("/:index", (req, res) => {
+  if (logArray[req.params.index]) {
+    logArray[req.params.index] = req.body;
+    res.status(200).json(logArray[req.params.index]);
+  } else {
+    res.status(404).json({ error: "Not Found" });
+  }
 });
 
 module.exports = log;
