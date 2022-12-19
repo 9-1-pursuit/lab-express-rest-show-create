@@ -16,8 +16,23 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome to the captain's log");
 });
 
-app.get("*", (req, res) => {
+app.get("/not-found", (req, res) => {
   res.status(404).json({ error: "Page not found" });
+});
+
+app.get("/invalid-input", (req, res) => {
+  res.status(404).json({
+    error: "Invalid input",
+    captainName: "must be a string",
+    title: "must be a string",
+    post: "must be a string",
+    mistakesWereMadeToday: "must be a boolean",
+    daysSinceLastCrisis: "must be a number",
+  });
+});
+
+app.get("*", (req, res) => {
+  res.redirect("/not-found");
 });
 
 // Export
