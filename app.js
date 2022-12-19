@@ -1,7 +1,7 @@
 const express = require("express")
 const app = express()
 const morgan = require("morgan")
-const logsController = require("./controllers/logsController.test.js")
+const logsController = require("./controllers/logsController.js")
 
 app.use((re, res, next) => {
   console.log("This code runs for every request")
