@@ -6,6 +6,13 @@ logs.get("/", (req, res) => {
   res.send(logsArray);
 });
 
+logs.get("/:id", (req, res) => {
+  const { id } = req.params;
+  logsArray[id]
+    ? res.send(logsArray[id])
+    : res.status(301).send(`Error: Sorry, can't find log item at index: ${id}`);
+});
+
 logs.post("/", (req, res) => {
   console.log(req.body);
   logsArray = [...logsArray, req.body];
