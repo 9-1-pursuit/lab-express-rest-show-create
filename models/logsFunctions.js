@@ -33,7 +33,6 @@ function logQueries(queryObj, dataArr) {
 
 // /logs POST validation function
 const validatePost = (req, resp, next) => {
-    const obj = req.body
     const captain = req.body.captainName
     const title = req.body.title
     const post = req.body.post
