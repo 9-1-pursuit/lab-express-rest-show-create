@@ -10,6 +10,10 @@ app.get("/", (req, res) => {
   res.send("Welcome");
 });
 
+app.get("/error", (req, res) => {
+  res.send("404 Page not found");
+});
+
 app.get("*", (req, res) => {
   res.status(404).send("404 Page not found");
 });
