@@ -12,7 +12,7 @@ app.use(express.json());
 app.use("/logs", logsController);
 
 app.get("/", (req, res) => {
-  res.send("welcome to the captain's log");
+  res.send("Welcome to the Captain's Log");
 });
 
 module.exports = app;

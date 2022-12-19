@@ -1,6 +1,7 @@
 const express = require("express");
 const log = express.Router();
 const logArray = require("../models/log");
+const { validateURL } = require("../models/validation");
 
 log.get("/", (req, res) => {
   const { order, mistakes, crisis } = req.query;
@@ -49,7 +50,7 @@ log.get("/", (req, res) => {
   }
 });
 
-log.post("/", (req, res) => {
+log.post("/", validateURL, (req, res) => {
   logArray.push(req.body);
   res.json(logArray[logArray.length - 1]);
 });
@@ -69,7 +70,7 @@ log.delete("/:id", (req, res) => {
   res.json(logArray.at({ id }));
 });
 
-log.put("/:id", (req, res) => {
+log.put("/:id", validateURL, (req, res) => {
   if (logArray[req.params.id]) {
     logArray[req.params.id] = req.body;
     res.status(200).json(logArray[req.params.id]);
