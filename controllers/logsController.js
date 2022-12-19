@@ -55,7 +55,8 @@ logs.get("/:index", (req, res) => {
 });
 
 logs.post("/", (req, res) => {
-  logsArray = [...logsArray, req.body];
+  // logsArray = [...logsArray, req.body];
+  logsArray.push(req.body);
   res.send(logsArray.at(-1));
 });
 
