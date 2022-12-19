@@ -5,7 +5,7 @@ const logsArray = require('../Models/log');
 const { validateURL } = require('../models/validation');
 
 log.get('/', (req, res) => {
-  const { order, mistakes } = req.query;
+  const { order, mistakes, lastCrisis } = req.query;
   // console.log(order);
 
   // if (!order) res.json(logsArray);
@@ -44,8 +44,21 @@ log.get('/', (req, res) => {
     const mistakeFalse = logsArray.filter(
       (b) => b.mistakesWereMadeToday === false
     );
-    console.log(mistakeFalse);
+    // console.log(mistakeFalse);
     res.json(mistakeFalse);
+  } else if (lastCrisis === 'gte20') {
+    const twentyDaysAndMore = logsArray.filter(
+      (c) => c.daysSinceLastCrisis >= 20
+    );
+    res.json(twentyDaysAndMore);
+  } else if (lastCrisis === 'gt10') {
+    const tenDaysAndMore = logsArray.filter((a) => a.daysSinceLastCrisis > 10);
+    res.json(tenDaysAndMore);
+  } else if (lastCrisis === 'lte5') {
+    const lessThanFiveDays = logsArray.filter(
+      (a) => a.daysSinceLastCrisis <= 5
+    );
+    res.json(lessThanFiveDays);
   } else {
     res.json(logsArray);
   }
