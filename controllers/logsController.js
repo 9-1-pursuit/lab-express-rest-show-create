@@ -7,15 +7,15 @@ logs.use((req, res, next) => {
   next()
 })
 
-// GET ROUTE for /logs (app.use in app.js handles the entry point for the controller) SHOW ALL LOGS
+//GET
 logs.get("/", (req, res) => {
   res.json(logsArray)
 })
 
-// logs endpoint for POST
+//POST
 // adds new long to end of logs array
 logs.post("/", (req, res) => {
-  logsArray.push(req.body)
+  //   logsArray.push(req.body)
   res.json(logsArray.at(-1))
 })
 
@@ -27,13 +27,15 @@ logs.get("/:index", (req, res) => {
   if (logsArray[index]) {
     res.status(200).json(logsArray[index])
   } else {
-    res.status(404).json({ error: "Not Found" })
+    res.send("/*")
   }
 })
 
 // DELETE
 // deletes at the index in the logs array
 
-logs.delete("/:index", (req, res) => {})
+logs.delete("/:index", (req, res) => {
+  const deletedLog = logsArray.splice(req.params.index, 1)
+})
 
 module.exports = logs
