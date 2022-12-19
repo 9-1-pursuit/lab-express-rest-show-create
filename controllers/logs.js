@@ -18,7 +18,7 @@ router.get("/", (req, resp) => {
     
 })
 
-// CREATE FOR root route
+// CREATE (Post) for root route w/ validation
 router.post("/", validatePost, (req, resp) => {
     data.push(req.body)
     resp.json((data.at(-1)))

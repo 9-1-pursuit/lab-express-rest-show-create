@@ -16,6 +16,7 @@ router.get("/", (req, resp) => {
 
 router.get("/:index", (req, resp) => {
     const {index} = req.params
+    if(data[index]){
     const backButton = `
     <button>
         <a href ="/v2/logs"
@@ -26,9 +27,15 @@ router.get("/:index", (req, resp) => {
     <h1>${data[index].title}</h1>
     <p>${data[index].post}</p>
     ${backButton}`
-    const display = data[index] ? showData : resp.redirect("/*")
 
-    resp.send(display)
+    resp.send(showData)
+    }
+    else{
+        resp.redirect("/*")
+    }
+    
+
+    // data[index] ? resp.send(showData) : resp.redirect("/*")
 })
 
 module.exports = router
