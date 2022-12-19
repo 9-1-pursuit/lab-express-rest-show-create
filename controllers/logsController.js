@@ -1,9 +1,54 @@
 const express = require('express');
+// const { sort } = require('../Models/log');
 const log = express.Router();
 const logsArray = require('../Models/log');
 const { validateURL } = require('../models/validation');
+
 log.get('/', (req, res) => {
-  res.json(logsArray);
+  const { order, mistakes } = req.query;
+  // console.log(order);
+
+  // if (!order) res.json(logsArray);
+  //! 1st bonus
+
+  if (order === 'asc') {
+    // console.log(sortAsc);
+    const sortAsc = logsArray.sort((a, b) => {
+      if (a.captainName.charAt(0) < b.captainName.charAt(0)) {
+        return -1;
+      } else if (a.captainName.charAt(0) > b.captainName.charAt(0)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    res.json(sortAsc);
+  } else if (order === 'desc') {
+    const desc = logsArray.sort((a, b) => {
+      if (a.captainName.charAt(0) > b.captainName.charAt(0)) {
+        return -1;
+      } else if (a.captainName.charAt(0) < b.captainName.charAt(0)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    res.json(desc);
+  } else if (mistakes === 'true') {
+    const filterMistakes = logsArray.filter(
+      (a) => a.mistakesWereMadeToday === true
+    );
+    // console.log(filterMistakes);
+    res.json(filterMistakes);
+  } else if (mistakes === 'false') {
+    const mistakeFalse = logsArray.filter(
+      (b) => b.mistakesWereMadeToday === false
+    );
+    console.log(mistakeFalse);
+    res.json(mistakeFalse);
+  } else {
+    res.json(logsArray);
+  }
 });
 
 log.post('/', validateURL, (req, res) => {
@@ -13,6 +58,7 @@ log.post('/', validateURL, (req, res) => {
 
 log.get('/:index', (req, res) => {
   const { index } = req.params;
+  const { a, b } = req.query;
   if (logsArray[index]) {
     res.status(200).json(logsArray[index]);
   } else {
@@ -26,6 +72,7 @@ log.delete('/:id', (req, res) => {
   //   res.json(logsArray.at(-1));
 });
 
+//! 3rd bonus
 log.put('/:id', validateURL, (req, res) => {
   if (logsArray[req.params.id]) {
     logsArray[req.params.id] = req.body;
