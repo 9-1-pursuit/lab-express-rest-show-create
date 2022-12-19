@@ -2,51 +2,28 @@ const express = require("express");
 const logs = express.Router();
 const logsArr = require("../models/log");
 
-const orderArr = (arr, mode, key, key2) => {
-  // ascending order, if first key is the same, checks the second
-  if (mode === "asc") {
-    arr.sort((a, b) => {
-      let valA = a[key].toLowerCase();
-      let valB = b[key].toLowerCase();
-      if (valA < valB) {
-        return -1;
-      }
-      if (valA > valB) {
-        return 1;
-      }
-      valA = a[key2].toLowerCase();
-      valB = b[key2].toLowerCase();
-      if (valA < valB) {
-        return -1;
-      }
-      if (valA > valB) {
-        return 1;
-      }
-      return 0;
-    });
-  }
-  // descending order, if first key is the same, checks the second
-  if (mode === "desc") {
-    arr.sort((a, b) => {
-      let valA = a[key].toLowerCase();
-      let valB = b[key].toLowerCase();
-      if (valA > valB) {
-        return -1;
-      }
-      if (valA < valB) {
-        return 1;
-      }
-      valA = a[key2].toLowerCase();
-      valB = b[key2].toLowerCase();
-      if (valA > valB) {
-        return -1;
-      }
-      if (valA < valB) {
-        return 1;
-      }
-      return 0;
-    });
-  }
+const orderArr = (arr, mode, key1, key2) => {
+  // val1 and val2 vary based on asc or desc
+  arr.sort((a, b) => {
+    let val1 = (mode === "asc" ? a[key1] : b[key1]).toLowerCase();
+    let val2 = (mode === "asc" ? b[key1] : a[key1]).toLowerCase();
+    if (val1 < val2) {
+      return -1;
+    }
+    if (val1 > val2) {
+      return 1;
+    }
+    // when key1 val is the same, checks key2
+    val1 = (mode === "asc" ? a[key2] : b[key2]).toLowerCase();
+    val2 = (mode === "asc" ? b[key2] : a[key2]).toLowerCase();
+    if (val1 < val2) {
+      return -1;
+    }
+    if (val1 > val2) {
+      return 1;
+    }
+    return 0;
+  });
 };
 
 const filterByCrisis = (arr, entry) => {
