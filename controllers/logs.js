@@ -22,4 +22,28 @@ router.get("/:id", (req, resp) => {
     data[id] ? resp.json(data[id]) : resp.redirect("/*")
 })
 
+// DELETE (destroy) route 
+router.delete("/:id", (req, resp) => {
+    const {id} = req.params
+    if(data[id]){
+        const deletedLog = data.splice(id, 1)
+        resp.status(200).json(deletedLog)
+    }
+    else{
+        resp.redirect("/*")
+    }
+})
+
+// PUT (Update) route
+router.put("/:id", (req, resp) => {
+    const {id} = req.params
+    if(data[id]){
+        data[id] = req.body
+        resp.status(200).json(data[id])
+    }
+    else{
+        resp.redirect("/*")
+    }
+})
+
 module.exports = router

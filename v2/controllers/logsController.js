@@ -13,9 +13,16 @@ router.get("/", (req, resp) => {
 
 router.get("/:index", (req, resp) => {
     const {index} = req.params
+    const backButton = `
+    <button>
+        <a href ="/v2/logs"
+        >V2 Logs Home</a>
+    </button>`
+    
     const showData = `
     <h1>${data[index].title}</h1>
-    <p>${data[index].post}</p>`
+    <p>${data[index].post}</p>
+    ${backButton}`
     const display = data[index] ? showData : resp.redirect("/*")
 
     resp.send(display)
