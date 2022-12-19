@@ -8,7 +8,6 @@ logs.use((req, res, next) => {
 })
 
 // GET ROUTE for /logs (app.use in app.js handles the entry point for the controller) SHOW ALL LOGS
-
 logs.get("/", (req, res) => {
   res.json(logsArray)
 })
