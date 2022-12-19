@@ -10,14 +10,14 @@ module.exports = [
     captainName: "Ahab",
     title: "Whale",
     post: "By heavens man, we are turned round and round in this world, like yonder windlass, and fate is the handspike.",
-    mistakesWereMadeToday: true,
+    mistakesWereMadeToday: false,
     daysSinceLastCrisis: 20,
   },
   {
     captainName: "Sarah Lance",
     title: "Vandal Savage",
     post: "I’d tell you to go to hell, but you’d probably just feel at home there.",
-    mistakesWereMadeToday: true,
+    mistakesWereMadeToday: false,
     daysSinceLastCrisis: 0,
   },
   {
