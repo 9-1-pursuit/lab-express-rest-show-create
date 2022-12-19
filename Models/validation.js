@@ -3,5 +3,8 @@ const validateURL = (req, res, next) => {
   console.log('this function runs on the POST log');
   next();
 };
-
-module.exports = { validateURL };
+//! 2nd bonus attempted
+const validateObject = (obj) => {
+  return Object.values(obj);
+};
+module.exports = { validateURL, validateObject };

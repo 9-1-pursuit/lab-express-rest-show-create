@@ -1,14 +1,11 @@
 const express = require('express');
-// const { sort } = require('../Models/log');
 const log = express.Router();
 const logsArray = require('../Models/log');
-const { validateURL } = require('../models/validation');
+const { validateURL, validateObject } = require('../models/validation');
 
 log.get('/', (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
-  // console.log(order);
 
-  // if (!order) res.json(logsArray);
   //! 1st bonus
 
   if (order === 'asc') {
@@ -38,13 +35,11 @@ log.get('/', (req, res) => {
     const filterMistakes = logsArray.filter(
       (a) => a.mistakesWereMadeToday === true
     );
-    // console.log(filterMistakes);
     res.json(filterMistakes);
   } else if (mistakes === 'false') {
     const mistakeFalse = logsArray.filter(
       (b) => b.mistakesWereMadeToday === false
     );
-    // console.log(mistakeFalse);
     res.json(mistakeFalse);
   } else if (lastCrisis === 'gte20') {
     const twentyDaysAndMore = logsArray.filter(
@@ -62,6 +57,7 @@ log.get('/', (req, res) => {
   } else {
     res.json(logsArray);
   }
+  console.log(validateObject(logsArray[0].captainName.slice(0)));
 });
 
 log.post('/', validateURL, (req, res) => {
@@ -94,4 +90,5 @@ log.put('/:id', validateURL, (req, res) => {
     res.status(404).json({ error: 'Not Found' });
   }
 });
+
 module.exports = log;
