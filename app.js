@@ -1,11 +1,15 @@
 const express = require("express")
 const app = express()
-let logsController = require("./controllers/logsController.test.js")
+const morgan = require("morgan")
+const logsController = require("./controllers/logsController.test.js")
+
 app.use((re, res, next) => {
   console.log("This code runs for every request")
   next()
 })
+
 app.use(express.json())
+app.use(morgan("tiny"))
 app.use("/logs", logsController)
 
 // Routes
