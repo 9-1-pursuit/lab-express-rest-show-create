@@ -40,7 +40,6 @@ const validatePost = (req, resp, next) => {
     const crisis = req.body.daysSinceLastCrisis
   
     if(!captain || !title || !post || mistakes === undefined || crisis === undefined){
-        console.log( captain,  title,  post,  mistakes,  crisis )
         next("err")
     }
     else if(typeof captain !== "string" || typeof title !== "string" || typeof post !== "string" || typeof mistakes !== "boolean" || typeof crisis !== "number"){

@@ -6,7 +6,10 @@ const data = require("../../models/log.js")
 router.get("/", (req, resp) => {
     let display = ""
     data.forEach((obj, i) => 
-       display += `<a href="/v2/logs/${i}">${obj.captainName}</a><br>`
+       display += `
+        <li>
+            <a href="/v2/logs/${i}">${obj.captainName}</a>
+        </li>`
     )
     resp.send(display)
 })

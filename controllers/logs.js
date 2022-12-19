@@ -35,7 +35,7 @@ router.delete("/:id", (req, resp) => {
 })
 
 // PUT (Update) route
-router.put("/:id", (req, resp) => {
+router.put("/:id", validatePost, (req, resp) => {
     const {id} = req.params
     if(data[id]){
         data[id] = req.body
