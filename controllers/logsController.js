@@ -1,6 +1,7 @@
 const express = require("express");
 const logs = express.Router();
 let logsArray = require("../models/log");
+const { postValidation } = require("../models/postValidation");
 
 logs.get("/", (req, res) => {
   let data = [];
@@ -51,13 +52,12 @@ logs.get("/:index", (req, res) => {
   const { index } = req.params;
   logsArray[index]
     ? res.send(logsArray[index])
-    : res.status(301).send({ Error: "Sorry, can't find log item" });
+    : res.redirect({ Error: "Sorry, can't find log item" });
 });
 
-logs.post("/", (req, res) => {
-  // logsArray = [...logsArray, req.body];
+logs.post("/", postValidation, (req, res) => {
   logsArray.push(req.body);
-  res.send(logsArray.at(-1));
+  res.json(logsArray.at(-1));
 });
 
 logs.put("/:index", (req, res) => {
