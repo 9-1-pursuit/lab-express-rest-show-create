@@ -35,7 +35,8 @@ logs.get("/:index", (req, res) => {
 // deletes at the index in the logs array
 
 logs.delete("/:index", (req, res) => {
-  const deletedLog = logsArray.splice(req.params.index, 1)
+  const deletedLogs = logsArray.splice(req.params.index, 1)
+  res.status(200).json(deletedLogs)
 })
 
 module.exports = logs
