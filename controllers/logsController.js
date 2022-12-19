@@ -22,8 +22,16 @@ log.get('/:index', (req, res) => {
 
 log.delete('/:id', (req, res) => {
   logsArray.pop(req.body);
-  res.json(logsArray.at({ index }));
+  res.json(logsArray.at({ id }));
   //   res.json(logsArray.at(-1));
 });
 
+log.put('/:id', validateURL, (req, res) => {
+  if (logsArray[req.params.id]) {
+    logsArray[req.params.id] = req.body;
+    res.status(200).json(logsArray[req.params.id]);
+  } else {
+    res.status(404).json({ error: 'Not Found' });
+  }
+});
 module.exports = log;
