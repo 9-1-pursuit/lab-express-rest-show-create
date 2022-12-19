@@ -33,9 +33,6 @@ router.get("/:index", (req, resp) => {
     else{
         resp.redirect("/*")
     }
-    
-
-    // data[index] ? resp.send(showData) : resp.redirect("/*")
 })
 
 module.exports = router

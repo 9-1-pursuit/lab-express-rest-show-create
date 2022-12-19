@@ -40,10 +40,14 @@ const validatePost = (req, resp, next) => {
     const crisis = req.body.daysSinceLastCrisis
   
     if(!captain || !title || !post || mistakes === undefined || crisis === undefined){
-        next("err")
+        // next("err")
+        // resp.redirect("/*")
+        resp.status(404).json({Error: "Please Check Request Body For Missing or Incomplete Values"})
+        
     }
     else if(typeof captain !== "string" || typeof title !== "string" || typeof post !== "string" || typeof mistakes !== "boolean" || typeof crisis !== "number"){
-        next("err")
+        // next("err")
+        resp.status(404).json({Error: "Please Check Request Body Values For Correct Data Types"})
     }
     else{
         next()
