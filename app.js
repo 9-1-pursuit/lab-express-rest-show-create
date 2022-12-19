@@ -13,4 +13,8 @@ app.get("/", (req, res) => {
   res.send("welcome to the captain's log");
 });
 
+app.get("*", (req, res) => {
+  res.status(404).send({ Error: "Page not found" });
+});
+
 module.exports = app;
