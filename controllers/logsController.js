@@ -26,7 +26,7 @@ log.delete("/:index", (req, res) => {
 });
 
 //BONUS
-bookmarks.put("/:index", (req, res) => {
+log.put("/:index", (req, res) => {
   if (logArray[req.params.index]) {
     logArray[req.params.index] = req.body;
     res.status(200).json(logArray[req.params.index]);
