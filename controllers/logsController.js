@@ -58,7 +58,7 @@ logs.delete("/:index", (req, res) => {
 
 // Update
 logs.put("/:index", validateData, (req, res) => {
-  const { index } = req.params.index;
+  const { index } = req.params;
   if (!logsArr[index]) {
     return notFound(res);
   }
