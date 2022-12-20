@@ -65,4 +65,5 @@ logs.put("/:index", validateData, (req, res) => {
   logsArr[index] = req.body;
   res.status(200).json(logsArr[index]);
 });
+
 module.exports = logs;
