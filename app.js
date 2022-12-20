@@ -1,17 +1,24 @@
-//DEPENDENCIES
+// DEPENDENCIES //
 const express = require("express");
 
-//CONFIGURATION
+// CONFIGURATION //
 const app = express();
 const logs = require("./controllers/logs");
 
-//MIDDLEWARE
-app.use("/", logs);
+// MIDDLEWARE //
+app.use(express.json());
 
-//ROUTES
+app.use((req, res, next) => {
+  console.log("this code runs for every request");
+  next();
+});
+
+app.use("/logs", logs);
+
+// ROUTES //
 app.get("/", (req, res) => {
   res.send(`welcome to the captin's log`);
 });
 
-//EXPORT
+// EXPORT //
 module.exports = app;
