@@ -55,4 +55,8 @@ const validateData = (req, res, next) => {
   next();
 };
 
-module.exports = { orderArr, filterByCrisis, validateData };
+const notFound = (response) => {
+  return response.redirect("/not-found");
+};
+
+module.exports = { orderArr, filterByCrisis, validateData, notFound };
