@@ -1,14 +1,17 @@
 const express = require("express");
 const logs = express.Router();
 const logsArray = require("../models/log");
-
+const {validateURL} = require("../models/validations")
 // show all logs
 // logs.get("/", (req, res) => {
 //   res.json(logsArray);
 // });
 
+
+
 // CREATE
-logs.post("/", (req, res) => {
+logs.post("/", validateURL, (req, res) => {
+  
   logsArray.push(req.body);
   res.json(logsArray.at(-1));
 });
@@ -70,7 +73,6 @@ logs.get("/", (req, res) => {
     res.json(logsArray);
   }
 });
-
 // DELETE
 logs.delete("/:index", (req, res) => {
   const { index } = req.params;
