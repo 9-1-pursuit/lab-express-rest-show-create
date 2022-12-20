@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const logsController = require("./controllers/logsController");
-const logsV2Controller = require("./v2/controllers/logsController");
+const logsV2Controller = require("./v2/controllers/v2LogsController");
 
 const app = express();
 require("dotenv").config();

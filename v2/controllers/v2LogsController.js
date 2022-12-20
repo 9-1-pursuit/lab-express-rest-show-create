@@ -1,15 +1,26 @@
 const express = require("express");
-const logsv2 = express.Router();
+const ejs = require("ejs");
+const v2Logs = express.Router();
 const logsArray = require("../../models/log");
 
-logsv2.get("/", (req, res) => {
+v2Logs.get("/", (req, res) => {
   const data = logsArray.map((log, index) => {
     return `<li><a style="display: block" href=/v2/logs/${index}>${log.captainName}: ${log.title}</a></li>`;
   });
   res.send(`<ul>${data}</ul>`);
+
+  //EJS ATTEMPT
+
+  // const html = ejs.render(
+  //   "<%= logsArray.map((log) => {return log.captainName}) %>",
+  //   {
+  //     logsArray: logsArray,
+  //   }
+  // );
+  // res.send(html);
 });
 
-logsv2.get("/:index", (req, res) => {
+v2Logs.get("/:index", (req, res) => {
   const { index } = req.params;
   const { title, post, captainName } = logsArray[index];
   res.send(
@@ -17,4 +28,4 @@ logsv2.get("/:index", (req, res) => {
   );
 });
 
-module.exports = logsv2;
+module.exports = v2Logs;
