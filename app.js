@@ -16,5 +16,9 @@ app.get("/error", (req, res) => {
     res.send("No page found")
 })
 
+app.get("*", (req, res) => {
+    res.status(404).redirect("/error")
+})
+
 //EXPORT
 module.exports = app
