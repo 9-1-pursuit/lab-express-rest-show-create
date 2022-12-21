@@ -1,6 +1,7 @@
 // Dependencies
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 const logsController = require("./controllers/logsController");
 const logsControllerV2 = require("./v2/controllers/logsController");
 
@@ -10,6 +11,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(cors());
 app.use("/logs", logsController);
 app.use("/v2/logs", logsControllerV2);
 
