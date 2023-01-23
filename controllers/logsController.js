@@ -24,7 +24,7 @@ logs.post("/", (req, res) => {
         logsArray.push(req.body)
         res.json(logsArray[logsArray.length -1])
     } catch (error) {
-        return res.status(404).json(error)
+        return res.status(404).json({error: "Not Found" })
     }
 })
 
@@ -34,8 +34,19 @@ logs.delete("/:arrayIndex", (req, res) => {
         const deletedLog = logsArray.splice(req.params.arrayIndex, 1)
         res.status(200).json(deletedLog)
     } catch (error) {
-        res.status(404).json(error)
+        res.status(404).json({error: "Not Found" })
     }
+})
+
+// UPDATE
+logs.put("/:arrayIndex", (req, res) => {
+    try {
+        logsArray[req.params.arrayIndex] = req.body
+        res.status(200).json(logsArray[req.params.arrayIndex])
+    } catch (error) {
+        res.status(404).json({error: "Not Found" })
+    }
+    
 })
 
 module.exports = logs
