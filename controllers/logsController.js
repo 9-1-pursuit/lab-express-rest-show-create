@@ -28,4 +28,14 @@ logs.post("/", (req, res) => {
     }
 })
 
+// DELETE
+logs.delete("/:arrayIndex", (req, res) => {
+    try {
+        const deletedLog = logsArray.splice(req.params.arrayIndex, 1)
+        res.status(200).json(deletedLog)
+    } catch (error) {
+        res.status(404).json(error)
+    }
+})
+
 module.exports = logs
